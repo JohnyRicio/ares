@@ -1,5 +1,5 @@
 {
-    "name": "stepina/registry_ares",
+    "name": "stepina/registry-ares",
     "description": "Read data from ARES",
     "type": "library",
     "authors": [

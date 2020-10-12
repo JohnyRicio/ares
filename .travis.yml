@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 7.3
+  - 7.4
+
+before_script:
+  - composer selfupdate --no-progress
+  - travis_retry composer install --prefer-dist
+
+script:
+  - vendor/bin/phpunit tests --coverage-clover coverage.xml
+  - vendor/bin/phpcs  --standard=ruleset.xml --extensions=php -sp src tests --encoding=utf-8 --tab-width=4 --ignore=vendor
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false

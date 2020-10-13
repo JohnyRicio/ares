@@ -9,6 +9,9 @@ This package helps to read data from Ares and transfer it to easy readable VO.
 Example:
 ---------
 ```php
-    $ares = new \registryAres\src\Ares\Ares();
+    $ares = new \registryAres\src\Ares\Ares(new \GuzzleHttp\Client());
     $dataAres = $ares->getByCompanyId('123123123');
 ```
+Or use Dependency injection
+
+getByCompanyId will return \registryAres\src\Ares\AresVO

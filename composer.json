@@ -9,9 +9,10 @@
         }
     ],
     "autoload": {
-        "classmap": [
-            "src/"
-         ]
+        "classmap": [{"RegistryAres\\": "src/"}]
+    },
+    "autoload-dev": {
+        "classmap": [{"RegistryAres\\Tests\\": "tests/"}]
     },
     "minimum-stability": "stable",
     "require": {

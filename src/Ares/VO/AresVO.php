@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace registryAres\src\Ares;
+namespace RegistryAres\src\Ares\Vo;
 
-class AresVO
+class AresVO extends Vo
 {
 
 	/** @var string */
@@ -12,30 +12,17 @@ class AresVO
 	public $vatNumber;
 
 	/** @var string */
-	public $company;
-
-	/** @var string */
-	public $street;
-
-	/** @var string */
-	public $streetNo1;
-
-	/** @var string */
-	public $streetNo2;
-
-	/** @var string */
-	public $city;
-
-	/** @var string */
-	public $zip;
+	public $companyName;
 
 	/** @var bool */
-	public $state = FALSE;
+	public $status = FALSE;
 
-	/** @var string */
-	public $country;
+	/** @var AddressVo */
+	public $address;
 
-	/** @var string */
-	public $partOfCity;
+	public function __construct()
+	{
+		$this->address = new AddressVo();
+	}
 
 }

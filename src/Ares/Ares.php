@@ -1,8 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace registryAres\src\Ares;
+namespace RegistryAres\src\Ares;
 
 use GuzzleHttp\Client;
+use RegistryAres\src\Ares\Vo\AddressVo;
+use RegistryAres\src\Ares\Vo\AresVO;
 use RuntimeException;
 use TypeError;
 use function preg_match;
@@ -12,7 +14,7 @@ class Ares
 
     private const ARES_URL = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_bas.cgi';
 
-    /** @var \GuzzleHttp\Client */
+    /** @var Client */
     private $client;
 
 	/**
@@ -57,18 +59,21 @@ class Ares
             throw new RuntimeException('Returned data are bad');
         }
 
+		$address = new AddressVo();
+		$address->city = (string)$el->AA->N;
+		$address->zip = (string)$el->AA->PSC;
+		$address->street = (string)$el->AA->NU;
+		$address->streetNo1 = (string)$el->AA->CD;
+		$address->streetNo2 = (string)$el->AA->CO;
+		$address->district = (string)$el->AA->NCO;
+		$address->country = (string)$el->AA->NS;
+
         $ares = new AresVO();
         $ares->companyId = $companyId;
-        $ares->company = (string)$el->OF;
-        $ares->city = (string)$el->AA->N;
-        $ares->state = TRUE;
-        $ares->zip = (string)$el->AA->PSC;
-        $ares->street = (string)$el->AA->NU;
-        $ares->streetNo1 = (string)$el->AA->CD;
-        $ares->streetNo2 = (string)$el->AA->CO;
-        $ares->partOfCity = (string)$el->AA->NCO;
-        $ares->country = (string)$el->AA->NS;
-        $ares->vatNumber = (string)$el->DIC;
+        $ares->companyName = (string)$el->OF;
+		$ares->vatNumber = (string)$el->DIC;
+		$ares->status = TRUE;
+		$ares->address = $address;
 
         return $ares;
     }

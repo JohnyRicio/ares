@@ -5,6 +5,7 @@ namespace registryAres\tests\ares;
 use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use registryAres\src\Ares\Ares;
 use RuntimeException;
@@ -16,35 +17,35 @@ final class AresTest extends TestCase
     public function testErrorCompanyIdByInt(): void
     {
         $this->expectException(TypeError::class);
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId(123);
     }
 
     public function testErrorCompanyIdByNull(): void
     {
         $this->expectException(TypeError::class);
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId(NULL);
     }
 
     public function testErrorCompanyIdByArray(): void
     {
         $this->expectException(TypeError::class);
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId([]);
     }
 
     public function testErrorCompanyIdByBool(): void
     {
         $this->expectException(TypeError::class);
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId(FALSE);
     }
 
     public function testErrorCompanyIdByDateTime(): void
     {
         $this->expectException(TypeError::class);
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId(new DateTime());
     }
 
@@ -52,7 +53,7 @@ final class AresTest extends TestCase
     {
         $this->expectException(TypeError::class);
         $this->expectErrorMessage('Company id must be 8 integers');
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId('asdgvcfg');
     }
 
@@ -60,7 +61,7 @@ final class AresTest extends TestCase
     {
         $this->expectException(TypeError::class);
         $this->expectErrorMessage('Company id must be 8 integers');
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId('1231231');
     }
 
@@ -68,13 +69,13 @@ final class AresTest extends TestCase
     {
         $this->expectException(TypeError::class);
         $this->expectErrorMessage('Company id must be 8 integers');
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId('123123123');
     }
 
     public function testGetCorrectResult(): void
     {
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $dataAres = $ares->getByCompanyId('48136000');
         self::assertSame('Hrad I. nádvoří', $dataAres->street);
         self::assertSame('', $dataAres->vatNumber);
@@ -91,7 +92,7 @@ final class AresTest extends TestCase
 
     public function testGetCorrectResultWithDIC(): void
     {
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $dataAres = $ares->getByCompanyId('00075370');
         self::assertSame('náměstí Republiky', $dataAres->street);
         self::assertSame('CZ00075370', $dataAres->vatNumber);
@@ -110,7 +111,7 @@ final class AresTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectErrorMessageMatches('/Problem in ARES: .*/');
-        $ares = new Ares();
+        $ares = $this->_getAres();
         $ares->getByCompanyId('11111111');
     }
 
@@ -119,8 +120,7 @@ final class AresTest extends TestCase
     	$client = $this->createMock(Client::class);
     	$client->method('request')->willReturn(new Response(404));
 
-    	$ares = $this->createPartialMock(Ares::class, ['getClient']);
-    	$ares->method('getClient')->willReturn($client);
+    	$ares = $this->_getAres($client);
 
         $this->expectException(RuntimeException::class);
         $this->expectErrorMessage('Problem with connection');
@@ -132,8 +132,7 @@ final class AresTest extends TestCase
 		$client = $this->createMock(Client::class);
 		$client->method('request')->willReturn(new Response(200));
 
-		$ares = $this->createPartialMock(Ares::class, ['getClient']);
-		$ares->method('getClient')->willReturn($client);
+		$ares = $this->_getAres($client);
 
 		$this->expectException(RuntimeException::class);
 		$this->expectErrorMessage('Problem with xml parser');
@@ -145,13 +144,16 @@ final class AresTest extends TestCase
 		$client = $this->createMock(Client::class);
 		$client->method('request')->willReturn(new Response(200, [], file_get_contents(__DIR__.'/data/FakeData.xml')));
 
-		$ares = $this->createPartialMock(Ares::class, ['getClient']);
-		$ares->method('getClient')->willReturn($client);
+		$ares = $this->_getAres($client);
 
 		$this->expectException(RuntimeException::class);
 		$this->expectErrorMessage('Returned data are bad');
 
 		$ares->getByCompanyId('48136000');
+	}
+
+	private function _getAres(?MockObject $stubClient = NULL): Ares {
+    	return new Ares($stubClient ?: new Client());
 	}
 
 }

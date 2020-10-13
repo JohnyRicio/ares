@@ -12,6 +12,17 @@ class Ares
 
     private const ARES_URL = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_bas.cgi';
 
+    /** @var \GuzzleHttp\Client */
+    private $client;
+
+	/**
+	 * Ares constructor.
+     */
+	public function __construct(Client $client)
+	{
+		$this->client = $client;
+	}
+
 	/**
      * @param $companyId
      * @throws /Exception
@@ -20,8 +31,7 @@ class Ares
     {
         $this->checkRequiredInput($companyId);
 
-        $client = $this->getClient();
-        $response = $client->request('GET', self::ARES_URL . '?' . http_build_query(['ico' => $companyId]));
+        $response = $this->client->request('GET', self::ARES_URL . '?' . http_build_query(['ico' => $companyId]));
 
         if (200 !== $response->getStatusCode()) {
             throw new RuntimeException('Problem with connection', $response->getStatusCode());
@@ -62,10 +72,6 @@ class Ares
 
         return $ares;
     }
-
-	protected function getClient(): Client {
-		return new Client();
-	}
 
 	private function checkRequiredInput(string $companyId): void
     {

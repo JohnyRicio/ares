@@ -11,7 +11,7 @@ before_script:
 script:
   - vendor/bin/phpunit tests --coverage-clover coverage.xml
   - vendor/bin/phpcs  --standard=ruleset.xml --extensions=php -sp src tests --encoding=utf-8 --tab-width=4 --ignore=vendor
-  - vendor\bin\phpstan.bat analyse -l 8 src tests
+  - vendor/bin/phpstan analyse -l 8 src tests
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

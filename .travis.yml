@@ -5,9 +5,14 @@ php:
   - 7.4
   - 8.0
 
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest"
+    - PREFER_LOWEST=""
+
 before_script:
   - composer selfupdate --no-progress
-  - travis_retry composer install --prefer-dist
+  - travis_retry composer update --prefer-source $PREFER_LOWEST
 
 script:
   - vendor/bin/phpunit tests --coverage-clover coverage.xml

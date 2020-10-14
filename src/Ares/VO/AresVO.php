@@ -20,9 +20,13 @@ class AresVO extends Vo
 	/** @var AddressVo */
 	public $address;
 
+	/** @var MetaVo */
+	public $meta;
+
 	public function __construct()
 	{
 		$this->address = new AddressVo();
+		$this->meta = new MetaVo();
 	}
 
 }

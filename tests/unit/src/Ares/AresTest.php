@@ -163,6 +163,30 @@ final class AresTest extends TestCase
 		$ares->getByCompanyId('48136000');
 	}
 
+	public function testReturnedFakeData(): void
+	{
+		$client = $this->createMock(Client::class);
+		$client->method('request')->willReturn(
+			new Response(200, [], file_get_contents(__DIR__ . '/data/FakeData.xml')),
+		);
+
+		$ares = $this->_getAres($client);
+
+		$dataAres = $ares->getByCompanyId('12332112');
+		self::assertSame('CZ12332112', $dataAres->vatNumber);
+		self::assertSame('Pokus User', $dataAres->companyName);
+		self::assertSame('12332112', $dataAres->companyId);
+		self::assertTrue($dataAres->status);
+		self::assertSame('26.08.2020 13:23:51', $dataAres->meta->datetime->format('d.m.Y H:i:s'));
+		self::assertSame('Josefa Švejka', $dataAres->address->street);
+		self::assertSame('1122b', $dataAres->address->streetNo1);
+		self::assertSame('2a', $dataAres->address->streetNo2);
+		self::assertSame('32325', $dataAres->address->zip);
+		self::assertSame('Pardubice', $dataAres->address->city);
+		self::assertSame('Česká republika', $dataAres->address->country);
+		self::assertSame('Plzeňské Předměstí', $dataAres->address->district);
+	}
+
 	private function _getAres(?MockObject $stubClient = NULL): Ares
 	{
 		return new Ares($stubClient ?: new Client());

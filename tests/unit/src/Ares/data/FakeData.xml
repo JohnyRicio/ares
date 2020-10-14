@@ -8,31 +8,25 @@
                    xsi:schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_basic/v_1.0.3 http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_basic/v_1.0.3/ares_answer_basic_v_1.0.3.xsd"
                    Id="ares">
     <are:Odpoved>
-        <D:PID>0</D:PID>
-        <D:VH>
-            <D:K>1</D:K>
-        </D:VH>
-        <D:PZA>1</D:PZA>
         <D:UVOD>
-            <D:ND>Výpis z dat Registru ARES - aktuální stav ke dni 2020-10-12</D:ND>
-            <D:ADB>2020-10-12</D:ADB>
-            <D:DVY>2020-10-12</D:DVY>
-            <D:CAS>23:20:27</D:CAS>
-            <D:Typ_odkazu>0</D:Typ_odkazu>
+            <D:DVY>2020-08-26</D:DVY>
+            <D:CAS>13:23:51</D:CAS>
         </D:UVOD>
         <D:VBAS>
             <D:ICO zdroj="RZP">12332112</D:ICO>
             <D:DIC zdroj="DPH">CZ12332112</D:DIC>
             <D:OF zdroj="RZP">Pokus User</D:OF>
             <D:DV>2007-10-04</D:DV>
-            <D:PF zdroj="RZP">
-                <D:KPF>101</D:KPF>
-                <D:NPF>Fyzická osoba podnikající dle živnostenského zákona nezapsaná v obchodním rejstříku</D:NPF>
-            </D:PF>
-            <D:AD zdroj="ARES">
-                <D:UC>Adresa 123</D:UC>
-                <D:PB>12333 Město</D:PB>
-            </D:AD>
+            <D:AA zdroj="ARES">
+                <D:NS>Česká republika</D:NS>
+                <D:N>Pardubice</D:N>
+                <D:NCO>Plzeňské Předměstí</D:NCO>
+                <D:NU>Josefa Švejka</D:NU>
+                <D:CD>1122b</D:CD>
+                <D:CO>2a</D:CO>
+                <D:TCD>1</D:TCD>
+                <D:PSC>32325</D:PSC>
+            </D:AA>
         </D:VBAS>
     </are:Odpoved>
 </are:Ares_odpovedi>

@@ -2,6 +2,7 @@
     "name": "stepina/registry-ares",
     "description": "Read data from ARES",
     "type": "library",
+    "version": "1.0.4",
     "authors": [
         {
             "name": "Jiří Štěpina",

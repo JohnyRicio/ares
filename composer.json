@@ -1,8 +1,8 @@
 {
     "name": "stepina/registry-ares",
     "description": "Read data from ARES",
+    "license": ["GPL-3.0-or-later"],
     "type": "library",
-    "version": "1.0.4",
     "authors": [
         {
             "name": "Jiří Štěpina",

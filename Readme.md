@@ -11,13 +11,13 @@ How to install
 composer require stepina/registry-ares
 ```
 
----
 Example:
 ---
 ```php
     $ares = new \registryAres\src\Ares\Ares(new \GuzzleHttp\Client());
     $dataAres = $ares->getByCompanyId('123123123');
 ```
+
 Or use Dependency injection
 
 getByCompanyId will return \registryAres\src\Ares\AresVO

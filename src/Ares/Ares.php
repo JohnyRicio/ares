@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace RegistryAres\src\Ares;
 
@@ -54,18 +54,10 @@ class Ares
 			throw new RuntimeException('Problem in ARES: ' . $data->children($ns['D'])->E->ET);
 		}
 
-		$ares = new AresVO();
-
-		$this->_parseMeta($ares, $data->children($ns['D'])->UVOD);
-
-		$this->_parseCompanyInfo($ares, $data->children($ns['D'])->VBAS);
-
-		if ($ares->companyId !== $companyId) {
-			throw new RuntimeException('Returned data are bad');
-		}
-
-		$ares->status = TRUE;
-		$this->_parseAddress($ares, $data->children($ns['D'])->VBAS);
+		$ares = AresVO::createFromElement(
+			$companyId, $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
+			$data->children($ns['D'])->VBAS
+		);
 
 		return $ares;
 	}
@@ -76,30 +68,4 @@ class Ares
 			throw new TypeError('Company id must be 8 integers');
 		}
 	}
-
-	private function _parseAddress(AresVO $ares, SimpleXMLElement $addres): void
-	{
-		$ares->address->city = (string)$addres->AA->N;
-		$ares->address->zip = (string)$addres->AA->PSC;
-		$ares->address->street = (string)$addres->AA->NU;
-		$ares->address->streetNo1 = (string)$addres->AA->CD;
-		$ares->address->streetNo2 = (string)$addres->AA->CO;
-		$ares->address->district = (string)$addres->AA->NCO;
-		$ares->address->country = (string)$addres->AA->NS;
-	}
-
-	private function _parseCompanyInfo(AresVO $ares, SimpleXMLElement $companyInfo): void
-	{
-		$ares->companyId = (string)$companyInfo->ICO;
-		$ares->companyName = (string)$companyInfo->OF;
-		$ares->vatNumber = (string)$companyInfo->DIC;
-	}
-
-	private function _parseMeta(AresVO $ares, SimpleXMLElement $meta): void
-	{
-		$ares->meta->datetime = DateTime::createFromFormat(
-			'Y-m-d H:i:s', (string)$meta->DVY . " " . (string)$meta->CAS,
-		);
-	}
-
 }

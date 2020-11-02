@@ -1,73 +1,73 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace RegistryAres\Tests\unit\src\Ares;
 
 use DateTime;
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RegistryAres\src\Ares\Ares;
 use RuntimeException;
+use Throwable;
 use TypeError;
 
 final class AresTest extends TestCase
 {
 
-    public function testErrorCompanyIdByInt() : void {
+    public function testErrorCompanyIdByInt(): void {
         $this->expectException(TypeError::class);
         $ares = $this->_getAres();
         $ares->getByCompanyId(123);
     }
 
-    public function testErrorCompanyIdByNull() : void {
+    public function testErrorCompanyIdByNull(): void {
         $this->expectException(TypeError::class);
         $ares = $this->_getAres();
         $ares->getByCompanyId(null);
     }
 
-    public function testErrorCompanyIdByArray() : void {
+    public function testErrorCompanyIdByArray(): void {
         $this->expectException(TypeError::class);
         $ares = $this->_getAres();
         $ares->getByCompanyId([]);
     }
 
-    public function testErrorCompanyIdByBool() : void {
+    public function testErrorCompanyIdByBool(): void {
         $this->expectException(TypeError::class);
         $ares = $this->_getAres();
         $ares->getByCompanyId(false);
     }
 
-    public function testErrorCompanyIdByDateTime() : void {
+    public function testErrorCompanyIdByDateTime(): void {
         $this->expectException(TypeError::class);
         $ares = $this->_getAres();
         $ares->getByCompanyId(new DateTime());
     }
 
-    public function testErrorCompanyIdByInvalidString() : void {
+    public function testErrorCompanyIdByInvalidString(): void {
         $this->expectException(TypeError::class);
         $this->expectErrorMessage('Company id must be 8 integers');
         $ares = $this->_getAres();
         $ares->getByCompanyId('asdgvcfg');
     }
 
-    public function testErrorCompanyIdByShortId() : void {
+    public function testErrorCompanyIdByShortId(): void {
         $this->expectException(TypeError::class);
         $this->expectErrorMessage('Company id must be 8 integers');
         $ares = $this->_getAres();
         $ares->getByCompanyId('1231231');
     }
 
-    public function testErrorCompanyIdByLongId() : void {
+    public function testErrorCompanyIdByLongId(): void {
         $this->expectException(TypeError::class);
         $this->expectErrorMessage('Company id must be 8 integers');
         $ares = $this->_getAres();
         $ares->getByCompanyId('123123123');
     }
 
-    public function testGetCorrectResult() : void {
-        $ares     = $this->_getAres();
+    public function testGetCorrectResult(): void {
+        $ares = $this->_getAres();
         $dataAres = $ares->getByCompanyId('48136000');
         self::assertSame('Hrad I. nádvoří', $dataAres->address->street);
         self::assertSame('', $dataAres->vatNumber);
@@ -81,8 +81,8 @@ final class AresTest extends TestCase
         self::assertSame('Hradčany', $dataAres->address->district);
     }
 
-    public function testGetCorrectResultWithDIC() : void {
-        $ares     = $this->_getAres();
+    public function testGetCorrectResultWithDIC(): void {
+        $ares = $this->_getAres();
         $dataAres = $ares->getByCompanyId('00075370');
         self::assertSame('náměstí Republiky', $dataAres->address->street);
         self::assertSame('CZ00075370', $dataAres->vatNumber);
@@ -96,25 +96,25 @@ final class AresTest extends TestCase
         self::assertSame('Vnitřní Město', $dataAres->address->district);
         self::assertSame(
             [
-                'city'      => 'Plzeň',
-                'zip'       => '30100',
-                'street'    => 'náměstí Republiky',
+                'city' => 'Plzeň',
+                'zip' => '30100',
+                'street' => 'náměstí Republiky',
                 'streetNo1' => '1',
                 'streetNo2' => '1',
-                'district'  => 'Vnitřní Město',
-                'country'   => 'Česká republika',
-            ], $dataAres->address->toArray()
+                'district' => 'Vnitřní Město',
+                'country' => 'Česká republika',
+            ], $dataAres->address->toArray(),
         );
     }
 
-    public function testGetIncorrectResult() : void {
+    public function testGetIncorrectResult(): void {
         $this->expectException(RuntimeException::class);
         $this->expectErrorMessageMatches('/Problem in ARES: .*/');
         $ares = $this->_getAres();
         $ares->getByCompanyId('11111111');
     }
 
-    public function testStatusError() : void {
+    public function testStatusError(): void {
         $client = $this->createMock(Client::class);
         $client->method('request')->willReturn(new Response(404));
 
@@ -125,7 +125,7 @@ final class AresTest extends TestCase
         $ares->getByCompanyId('48136000');
     }
 
-    public function testNoData() : void {
+    public function testNoData(): void {
         $client = $this->createMock(Client::class);
         $client->method('request')->willReturn(new Response(200));
 
@@ -136,7 +136,7 @@ final class AresTest extends TestCase
         $ares->getByCompanyId('48136000');
     }
 
-    public function testReturnedBadData() : void {
+    public function testReturnedBadData(): void {
         $client = $this->createMock(Client::class);
         $client->method('request')->willReturn(
             new Response(200, [], file_get_contents(__DIR__ . '/data/FakeData.xml')),
@@ -150,7 +150,7 @@ final class AresTest extends TestCase
         $ares->getByCompanyId('48136000');
     }
 
-    public function testReturnedFakeData() : void {
+    public function testReturnedFakeData(): void {
         $client = $this->createMock(Client::class);
         $client->method('request')->willReturn(
             new Response(200, [], file_get_contents(__DIR__ . '/data/FakeData.xml')),
@@ -172,8 +172,8 @@ final class AresTest extends TestCase
         self::assertSame('Plzeňské Předměstí', $dataAres->address->district);
     }
 
-    public function testNonExistsProperty() : void {
-        $this->expectException(Exception::class);
+    public function testNonExistsProperty(): void {
+        $this->expectException(Throwable::class);
         $client = $this->createMock(Client::class);
         $client->method('request')->willReturn(
             new Response(200, [], file_get_contents(__DIR__ . '/data/FakeData.xml')),
@@ -185,7 +185,7 @@ final class AresTest extends TestCase
         $dataAres->testProperty;
     }
 
-    private function _getAres(?MockObject $stubClient = null) : Ares {
+    private function _getAres(?MockObject $stubClient = null): Ares {
         return new Ares($stubClient ?: new Client());
     }
 

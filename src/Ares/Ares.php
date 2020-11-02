@@ -1,12 +1,10 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace RegistryAres\src\Ares;
 
-use DateTime;
 use GuzzleHttp\Client;
 use RegistryAres\src\Ares\Vo\AresVO;
 use RuntimeException;
-use SimpleXMLElement;
 use TypeError;
 use function preg_match;
 
@@ -54,12 +52,10 @@ class Ares
 			throw new RuntimeException('Problem in ARES: ' . $data->children($ns['D'])->E->ET);
 		}
 
-		$ares = AresVO::createFromElement(
+		return AresVO::createFromElement(
 			$companyId, $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
-			$data->children($ns['D'])->VBAS
+			$data->children($ns['D'])->VBAS,
 		);
-
-		return $ares;
 	}
 
 	private function checkRequiredInput(string $companyId): void
@@ -68,4 +64,5 @@ class Ares
 			throw new TypeError('Company id must be 8 integers');
 		}
 	}
+
 }

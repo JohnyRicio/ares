@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace RegistryAres\src\Ares\Vo;
 
@@ -19,19 +19,21 @@ class MetaVo extends Vo
 			'Y-m-d H:i:s', (string)$metaInfoXmlElement->DVY . " " . (string)$metaInfoXmlElement->CAS,
 		);
 		$element->validate();
+
 		return $element;
 	}
 
-	protected function validate() : void {
+    public function toArray(): array
+    {
+        return [
+            'datetime' => $this->_datetime->format('Y-m-d H:i:s'),
+        ];
+    }
+
+	protected function validate(): void {
 		if (!$this->_datetime instanceof DateTime) {
 			throw new InvalidArgumentException('Datetime must be correctly defined');
 		}
 	}
 
-	public function toArray(): array
-	{
-		return [
-			'datetime' => $this->_datetime->format('Y-m-d H:i:s')
-		];
-	}
 }

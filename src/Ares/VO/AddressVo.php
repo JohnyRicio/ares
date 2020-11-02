@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace RegistryAres\src\Ares\Vo;
 
@@ -39,6 +39,7 @@ class AddressVo extends Vo
 		$element->_district = (string)$addressXmlElement->AA->NCO;
 		$element->_country = (string)$addressXmlElement->AA->NS;
 		$element->validate();
+
 		return $element;
 	}
 
@@ -54,4 +55,5 @@ class AddressVo extends Vo
 			'country' => $this->_country,
 		];
 	}
+
 }

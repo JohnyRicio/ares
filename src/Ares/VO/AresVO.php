@@ -58,12 +58,8 @@ final class AresVO extends Vo
             throw new InvalidArgumentException('Company ID is required argument');
         }
 
-        if (!$this->_meta) {
-            throw new InvalidArgumentException('Meta information is required argument');
-        }
-
-        if (!$this->_address) {
-            throw new InvalidArgumentException('Address is required argument');
+        if (8 !== strlen($this->_companyId)) {
+            throw new InvalidArgumentException('Company ID must have 8 letters');
         }
     }
 

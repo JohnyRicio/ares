@@ -13,8 +13,8 @@
             <D:CAS>13:23:51</D:CAS>
         </D:UVOD>
         <D:VBAS>
-            <D:ICO zdroj="RZP">12332112</D:ICO>
-            <D:DIC zdroj="DPH">CZ12332112</D:DIC>
+            <D:ICO zdroj="RZP">1231231</D:ICO>
+            <D:DIC zdroj="DPH">CZ1231231</D:DIC>
             <D:OF zdroj="RZP">Test User</D:OF>
             <D:DV>2007-10-04</D:DV>
             <D:AA zdroj="ARES">

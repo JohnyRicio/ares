@@ -160,7 +160,7 @@ final class AresTest extends TestCase
 
         $dataAres = $ares->getByCompanyId('12332112');
         self::assertSame('CZ12332112', $dataAres->vatNumber);
-        self::assertSame('Pokus User', $dataAres->companyName);
+        self::assertSame('Test User', $dataAres->companyName);
         self::assertSame('12332112', $dataAres->companyId);
         self::assertSame('26.08.2020 13:23:51', $dataAres->meta->datetime->format('d.m.Y H:i:s'));
         self::assertSame('Josefa Švejka', $dataAres->address->street);
@@ -170,6 +170,22 @@ final class AresTest extends TestCase
         self::assertSame('Pardubice', $dataAres->address->city);
         self::assertSame('Česká republika', $dataAres->address->country);
         self::assertSame('Plzeňské Předměstí', $dataAres->address->district);
+        self::assertSame(
+            [
+                'companyName' => 'Test User',
+                'vatNumber' => 'CZ12332112',
+                'meta' => ['datetime' => '2020-08-26 13:23:51'],
+                'address' => [
+                    'city' => 'Pardubice',
+                    'zip' => '32325',
+                    'street' => 'Josefa Švejka',
+                    'streetNo1' => '1122b',
+                    'streetNo2' => '2a',
+                    'district' => 'Plzeňské Předměstí',
+                    'country' => 'Česká republika',
+                ],
+            ],
+            $dataAres->toArray());
     }
 
     public function testNonExistsProperty(): void {

@@ -16,7 +16,7 @@ class AresVOTest extends TestCase
         $xml = simplexml_load_string(file_get_contents(__DIR__ . '/../data/EmptyCompanyIdFakeData.xml'));
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
-        AresVO::createFromElement(
+        AresVO::createFromXmlElement(
             '', $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
             $data->children($ns['D'])->VBAS,
         );
@@ -29,7 +29,7 @@ class AresVOTest extends TestCase
         $xml = simplexml_load_string(file_get_contents(__DIR__ . '/../data/InvalidCompanyIdFakeData.xml'));
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
-        AresVO::createFromElement(
+        AresVO::createFromXmlElement(
             '1231231', $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
             $data->children($ns['D'])->VBAS,
         );

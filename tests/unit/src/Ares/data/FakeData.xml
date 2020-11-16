@@ -27,6 +27,20 @@
                 <D:TCD>1</D:TCD>
                 <D:PSC>32325</D:PSC>
             </D:AA>
+            <D:Obory_cinnosti>
+                <D:Obor_cinnosti>
+                    <D:K>Z01007</D:K>
+                    <D:T>Výroba potravinářských a škrobárenských výrobků</D:T>
+                </D:Obor_cinnosti>
+                <D:Obor_cinnosti>
+                    <D:K>Z01012</D:K>
+                    <D:T>Zpracování dřeva, výroba dřevěných, korkových, proutěných a slaměných výrobků</D:T>
+                </D:Obor_cinnosti>
+                <D:Obor_cinnosti>
+                    <D:K>Z01013</D:K>
+                    <D:T>Výroba vlákniny, papíru a lepenky a zboží z těchto materiálů</D:T>
+                </D:Obor_cinnosti>
+            </D:Obory_cinnosti>
         </D:VBAS>
     </are:Odpoved>
 </are:Ares_odpovedi>

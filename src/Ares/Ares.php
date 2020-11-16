@@ -52,7 +52,7 @@ class Ares
 			throw new RuntimeException('Problem in ARES: ' . $data->children($ns['D'])->E->ET);
 		}
 
-		return AresVO::createFromElement(
+		return AresVO::createFromXmlElement(
 			$companyId, $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
 			$data->children($ns['D'])->VBAS,
 		);

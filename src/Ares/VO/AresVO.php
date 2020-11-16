@@ -24,7 +24,10 @@ final class AresVO extends Vo
     /** @var MetaVo */
     protected $_meta;
 
-    public static function createFromElement(
+    /** @var FieldOfActivity[] */
+    protected $_fieldOfActivities;
+
+    public static function createFromXmlElement(
         string $companyId, SimpleXMLElement $companyInfoXmlElement, SimpleXMLElement $metaInfoXmlElement,
         SimpleXMLElement $adressInfoXmlElement
     ): self {
@@ -39,21 +42,35 @@ final class AresVO extends Vo
         $element->_vatNumber = (string) $companyInfoXmlElement->DIC;
         $element->_meta = MetaVo::createFromXmlElement($metaInfoXmlElement);
         $element->_address = AddressVo::createFromXmlElement($adressInfoXmlElement);
+
+        foreach ($adressInfoXmlElement->Obory_cinnosti as $fieldOfActivityXmlElements) {
+            foreach ($fieldOfActivityXmlElements as $fieldOfActivityXmlElement) {
+                $element->_fieldOfActivities[] = FieldOfActivity::createFromXmlElement($fieldOfActivityXmlElement);
+            }
+        }
+
         $element->validate();
 
         return $element;
     }
 
-    public function toArray(): array {
+    public function toArray(): array
+    {
         return [
             'companyName' => $this->_companyName,
             'vatNumber' => $this->_vatNumber,
             'meta' => $this->_meta->toArray(),
             'address' => $this->_address->toArray(),
+            'fieldOfActivities' => array_map(
+                static function (FieldOfActivity $item) {
+                    return $item->toArray();
+                }, $this->_fieldOfActivities,
+            ),
         ];
     }
 
-    protected function validate(): void {
+    protected function validate(): void
+    {
         if (!$this->_companyId) {
             throw new InvalidArgumentException('Company ID is required argument');
         }

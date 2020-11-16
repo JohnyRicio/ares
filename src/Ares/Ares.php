@@ -11,7 +11,7 @@ use function preg_match;
 class Ares
 {
 
-	private const ARES_URL = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_bas.cgi';
+	private const ARES_URL = 'https://wwwinfo.mfcr.cz/cgi-bin/ares/darv_bas.cgi';
 
 	/** @var Client */
 	private $client;

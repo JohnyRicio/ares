@@ -17,6 +17,7 @@ before_script:
 script:
   - vendor/bin/phpcs  --standard=ruleset.xml --extensions=php -sp src tests --encoding=utf-8 --tab-width=4 --ignore=vendor
   - vendor/bin/phpunit tests --coverage-clover coverage.xml
+  - vendor/bin/phpstan analyse -c phpstan.neon
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

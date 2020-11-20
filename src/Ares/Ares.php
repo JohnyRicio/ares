@@ -1,12 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace RegistryAres\src\Ares;
+namespace RegistryAres\Ares;
 
 use GuzzleHttp\Client;
-use RegistryAres\src\Ares\Vo\AresVO;
+use RegistryAres\Ares\Vo\AresVO;
 use RuntimeException;
 use TypeError;
 use function preg_match;
+
+require_once __DIR__.'/../../vendor/autoload.php';
 
 class Ares
 {
@@ -24,10 +26,7 @@ class Ares
 		$this->client = $client;
 	}
 
-	/**
-	 * @param $companyId
-	 * @throws /Exception
-	 */
+    /** @throws RuntimeException */
 	public function getByCompanyId(string $companyId): AresVO
 	{
 		$this->checkRequiredInput($companyId);

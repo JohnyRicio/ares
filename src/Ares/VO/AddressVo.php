@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace RegistryAres\src\Ares\Vo;
+namespace RegistryAres\Ares\Vo;
 
 use SimpleXMLElement;
 
@@ -43,6 +43,7 @@ class AddressVo extends Vo
 		return $element;
 	}
 
+    /** @return array<string,string> */
 	public function toArray(): array
 	{
 		return [

@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace unit\src\Ares\VO;
+namespace RegistryAres\Tests\Ares\VO;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use RegistryAres\src\Ares\Vo\MetaVo;
+use RegistryAres\Ares\Vo\MetaVo;
 
 class MetaVOTest extends TestCase
 {

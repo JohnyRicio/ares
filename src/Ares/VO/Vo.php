@@ -1,12 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace RegistryAres\src\Ares\Vo;
+namespace RegistryAres\Ares\Vo;
 
 use Exception;
 
 abstract class Vo
 {
 
+    /** @return array<string,string|array> */
     abstract public function toArray(): array;
 
     protected function validate(): void {

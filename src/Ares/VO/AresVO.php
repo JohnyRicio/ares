@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace RegistryAres\src\Ares\Vo;
+namespace RegistryAres\Ares\Vo;
 
 use InvalidArgumentException;
 use RuntimeException;
@@ -54,6 +54,7 @@ final class AresVO extends Vo
         return $element;
     }
 
+    /** @return array<string,string|array> */
     public function toArray(): array
     {
         return [

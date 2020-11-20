@@ -1,54 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace RegistryAres\Tests\unit\src\Ares;
+namespace RegistryAres\Tests\Ares;
 
-use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use RegistryAres\src\Ares\Ares;
+use RegistryAres\Ares\Ares;
 use RuntimeException;
 use Throwable;
 use TypeError;
 
 final class AresTest extends TestCase
 {
-
-    public function testErrorCompanyIdByInt(): void
-    {
-        $this->expectException(TypeError::class);
-        $ares = $this->_getAres();
-        $ares->getByCompanyId(123);
-    }
-
-    public function testErrorCompanyIdByNull(): void
-    {
-        $this->expectException(TypeError::class);
-        $ares = $this->_getAres();
-        $ares->getByCompanyId(null);
-    }
-
-    public function testErrorCompanyIdByArray(): void
-    {
-        $this->expectException(TypeError::class);
-        $ares = $this->_getAres();
-        $ares->getByCompanyId([]);
-    }
-
-    public function testErrorCompanyIdByBool(): void
-    {
-        $this->expectException(TypeError::class);
-        $ares = $this->_getAres();
-        $ares->getByCompanyId(false);
-    }
-
-    public function testErrorCompanyIdByDateTime(): void
-    {
-        $this->expectException(TypeError::class);
-        $ares = $this->_getAres();
-        $ares->getByCompanyId(new DateTime());
-    }
 
     public function testErrorCompanyIdByInvalidString(): void
     {
@@ -229,7 +193,7 @@ final class AresTest extends TestCase
         $ares = $this->_getAres($client);
 
         $dataAres = $ares->getByCompanyId('12332112');
-        $dataAres->testProperty;
+        self::assertNull($dataAres->testProperty);
     }
 
     private function _getAres(?MockObject $stubClient = null): Ares

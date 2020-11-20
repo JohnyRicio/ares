@@ -4,6 +4,7 @@ namespace RegistryAres\Tests\Ares;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RegistryAres\Ares\Ares;
@@ -116,8 +117,14 @@ final class AresTest extends TestCase
     public function testReturnedBadData(): void
     {
         $client = $this->createMock(Client::class);
+        $xmlData = file_get_contents(__DIR__ . '/data/FakeData.xml');
+
+        if (false === $xmlData) {
+            throw new InvalidArgumentException('File is not readable');
+        }
+
         $client->method('request')->willReturn(
-            new Response(200, [], file_get_contents(__DIR__ . '/data/FakeData.xml')),
+            new Response(200, [], $xmlData),
         );
 
         $ares = $this->_getAres($client);
@@ -131,8 +138,14 @@ final class AresTest extends TestCase
     public function testReturnedFakeData(): void
     {
         $client = $this->createMock(Client::class);
+        $xmlData = file_get_contents(__DIR__ . '/data/FakeData.xml');
+
+        if (false === $xmlData) {
+            throw new InvalidArgumentException('File is not readable');
+        }
+
         $client->method('request')->willReturn(
-            new Response(200, [], file_get_contents(__DIR__ . '/data/FakeData.xml')),
+            new Response(200, [], $xmlData),
         );
 
         $ares = $this->_getAres($client);
@@ -186,8 +199,14 @@ final class AresTest extends TestCase
     {
         $this->expectException(Throwable::class);
         $client = $this->createMock(Client::class);
+        $xmlData = file_get_contents(__DIR__ . '/data/FakeData.xml');
+
+        if (false === $xmlData) {
+            throw new InvalidArgumentException('File is not readable');
+        }
+
         $client->method('request')->willReturn(
-            new Response(200, [], file_get_contents(__DIR__ . '/data/FakeData.xml')),
+            new Response(200, [], $xmlData),
         );
 
         $ares = $this->_getAres($client);
@@ -196,6 +215,7 @@ final class AresTest extends TestCase
         self::assertNull($dataAres->testProperty);
     }
 
+    /** @param MockObject|Client $stubClient */
     private function _getAres(?MockObject $stubClient = null): Ares
     {
         return new Ares($stubClient ?: new Client());

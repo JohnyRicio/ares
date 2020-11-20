@@ -13,7 +13,18 @@ class AresVOTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Company ID is required argument');
-        $xml = simplexml_load_string(file_get_contents(__DIR__ . '/../data/EmptyCompanyIdFakeData.xml'));
+        $xmlData = file_get_contents(__DIR__ . '/../data/EmptyCompanyIdFakeData.xml');
+
+        if (false === $xmlData) {
+            throw new InvalidArgumentException('File is not readable');
+        }
+
+        $xml = simplexml_load_string($xmlData);
+
+        if (false === $xml) {
+            throw new InvalidArgumentException('Bad input xml!');
+        }
+
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
         AresVO::createFromXmlElement(
@@ -26,7 +37,18 @@ class AresVOTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Company ID must have 8 letters');
-        $xml = simplexml_load_string(file_get_contents(__DIR__ . '/../data/InvalidCompanyIdFakeData.xml'));
+        $xmlData = file_get_contents(__DIR__ . '/../data/InvalidCompanyIdFakeData.xml');
+
+        if (false === $xmlData) {
+            throw new InvalidArgumentException('File is not readable');
+        }
+
+        $xml = simplexml_load_string($xmlData);
+
+        if (false === $xml) {
+            throw new InvalidArgumentException('Bad input xml!');
+        }
+
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
         AresVO::createFromXmlElement(

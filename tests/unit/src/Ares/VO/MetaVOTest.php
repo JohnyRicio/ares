@@ -13,7 +13,18 @@ class MetaVOTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Datetime must be correctly defined');
-        $xml = simplexml_load_string(file_get_contents(__DIR__ . '/../data/InvalidMetaDatetimeFakeData.xml'));
+        $xmlData = file_get_contents(__DIR__ . '/../data/InvalidMetaDatetimeFakeData.xml');
+
+        if (false === $xmlData) {
+            throw new InvalidArgumentException('File is not readable');
+        }
+
+        $xml = simplexml_load_string($xmlData);
+
+        if (false === $xml) {
+            throw new InvalidArgumentException('Bad input xml!');
+        }
+
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
         MetaVo::createFromXmlElement($data->children($ns['D'])->UVOD);

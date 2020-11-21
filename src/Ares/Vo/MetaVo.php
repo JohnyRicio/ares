@@ -3,7 +3,7 @@
 namespace RegistryAres\Ares\Vo;
 
 use DateTime;
-use InvalidArgumentException;
+use RegistryAres\Ares\Exception\InvalidArgumentException;
 use SimpleXMLElement;
 
 class MetaVo extends Vo
@@ -12,6 +12,7 @@ class MetaVo extends Vo
     /** @var DateTime */
     protected $_datetime;
 
+    /** @throws InvalidArgumentException */
     public static function createFromXmlElement(SimpleXMLElement $metaInfoXmlElement): self
     {
         $element = new self();

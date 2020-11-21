@@ -2,8 +2,8 @@
 
 namespace RegistryAres\Tests\Ares\VO;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use RegistryAres\Ares\Exception\InvalidArgumentException;
 use RegistryAres\Ares\Vo\AresVO;
 
 class AresVOTest extends TestCase
@@ -12,7 +12,7 @@ class AresVOTest extends TestCase
     public function testAresVoEmptyCompanyId(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectErrorMessage('Company ID is required argument');
+        $this->expectErrorMessage('Company ID must have 8 letters');
         $xmlData = file_get_contents(__DIR__ . '/../data/EmptyCompanyIdFakeData.xml');
 
         if (false === $xmlData) {

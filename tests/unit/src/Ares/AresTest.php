@@ -3,21 +3,23 @@
 namespace RegistryAres\Tests\Ares;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RegistryAres\Ares\Ares;
-use RuntimeException;
+use RegistryAres\Ares\Exception\ExternalAresException;
+use RegistryAres\Ares\Exception\IncorrectReturnedDataException;
+use RegistryAres\Ares\Exception\InvalidArgumentException;
 use Throwable;
-use TypeError;
 
 final class AresTest extends TestCase
 {
 
     public function testErrorCompanyIdByInvalidString(): void
     {
-        $this->expectException(TypeError::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Company id must be 8 integers');
         $ares = $this->_getAres();
         $ares->getByCompanyId('asdgvcfg');
@@ -25,7 +27,7 @@ final class AresTest extends TestCase
 
     public function testErrorCompanyIdByShortId(): void
     {
-        $this->expectException(TypeError::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Company id must be 8 integers');
         $ares = $this->_getAres();
         $ares->getByCompanyId('1231231');
@@ -33,7 +35,7 @@ final class AresTest extends TestCase
 
     public function testErrorCompanyIdByLongId(): void
     {
-        $this->expectException(TypeError::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Company id must be 8 integers');
         $ares = $this->_getAres();
         $ares->getByCompanyId('123123123');
@@ -84,7 +86,7 @@ final class AresTest extends TestCase
 
     public function testGetIncorrectResult(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ExternalAresException::class);
         $this->expectErrorMessageMatches('/Problem in ARES: .*/');
         $ares = $this->_getAres();
         $ares->getByCompanyId('11111111');
@@ -97,8 +99,24 @@ final class AresTest extends TestCase
 
         $ares = $this->_getAres($client);
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ExternalAresException::class);
         $this->expectErrorMessage('Problem with connection');
+        $ares->getByCompanyId('48136000');
+    }
+
+    public function testGuzzleException(): void
+    {
+        $requst = $this->createMock(Request::class);
+        $response = $this->createMock(Response::class);
+        $client = $this->createMock(Client::class);
+        $client->method('request')->willThrowException(
+            new BadResponseException('Test exception', $requst, $response),
+        );
+
+        $ares = $this->_getAres($client);
+
+        $this->expectException(ExternalAresException::class);
+        $this->expectErrorMessage('Test exception');
         $ares->getByCompanyId('48136000');
     }
 
@@ -109,7 +127,7 @@ final class AresTest extends TestCase
 
         $ares = $this->_getAres($client);
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ExternalAresException::class);
         $this->expectErrorMessage('Problem with xml parser');
         $ares->getByCompanyId('48136000');
     }
@@ -129,7 +147,7 @@ final class AresTest extends TestCase
 
         $ares = $this->_getAres($client);
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(IncorrectReturnedDataException::class);
         $this->expectErrorMessage('Returned data are bad');
 
         $ares->getByCompanyId('48136000');

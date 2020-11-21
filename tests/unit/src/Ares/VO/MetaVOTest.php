@@ -2,8 +2,8 @@
 
 namespace RegistryAres\Tests\Ares\VO;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use RegistryAres\Ares\Exception\InvalidArgumentException;
 use RegistryAres\Ares\Vo\MetaVo;
 
 class MetaVOTest extends TestCase

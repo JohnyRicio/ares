@@ -2,7 +2,7 @@
 
 namespace RegistryAres\Ares\Vo;
 
-use Exception;
+use RegistryAres\Ares\Exception\PropertyException;
 
 abstract class Vo
 {
@@ -14,11 +14,14 @@ abstract class Vo
         // Default behavior
     }
 
-    /** @return mixed */
+    /**
+     * @return mixed
+     * @throws PropertyException
+     */
 	public function __get(string $name)
 	{
 		if (!property_exists($this, '_'.$name)) {
-			throw new Exception('Property \''.$name.'\' in object \''.self::class.'\' not exists');
+			throw new PropertyException('Property \''.$name.'\' in object \''.self::class.'\' not exists');
 		}
 
 		return $this->{'_' . $name};

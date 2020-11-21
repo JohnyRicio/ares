@@ -2,8 +2,8 @@
 
 namespace RegistryAres\Ares\Vo;
 
-use InvalidArgumentException;
-use RuntimeException;
+use RegistryAres\Ares\Exception\IncorrectReturnedDataException;
+use RegistryAres\Ares\Exception\InvalidArgumentException;
 use SimpleXMLElement;
 
 final class AresVO extends Vo
@@ -27,6 +27,7 @@ final class AresVO extends Vo
     /** @var FieldOfActivity[] */
     protected $_fieldOfActivities;
 
+    /** @throws IncorrectReturnedDataException|InvalidArgumentException */
     public static function createFromXmlElement(
         string $companyId, SimpleXMLElement $companyInfoXmlElement, SimpleXMLElement $metaInfoXmlElement,
         SimpleXMLElement $adressInfoXmlElement
@@ -35,7 +36,7 @@ final class AresVO extends Vo
         $element->_companyId = (string) $companyInfoXmlElement->ICO;
 
         if ($element->_companyId !== $companyId) {
-            throw new RuntimeException('Returned data are bad');
+            throw new IncorrectReturnedDataException('Returned data are bad');
         }
 
         $element->_companyName = (string) $companyInfoXmlElement->OF;
@@ -70,12 +71,9 @@ final class AresVO extends Vo
         ];
     }
 
+    /** @throws InvalidArgumentException */
     protected function validate(): void
     {
-        if (!$this->_companyId) {
-            throw new InvalidArgumentException('Company ID is required argument');
-        }
-
         if (8 !== strlen($this->_companyId)) {
             throw new InvalidArgumentException('Company ID must have 8 letters');
         }

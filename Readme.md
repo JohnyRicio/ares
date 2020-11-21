@@ -14,7 +14,7 @@ composer require stepina/registry-ares
 Example:
 ---
 ```php
-    $ares = new \registryAres\src\Ares\Ares(new \GuzzleHttp\Client());
+    $ares = new \RegistryAres\Ares\Exception\src\Ares\Ares(new \GuzzleHttp\Client());
     $dataAres = $ares->getByCompanyId('123123123');
 ```
 

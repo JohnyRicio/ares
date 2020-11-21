@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace RegistryAres\Tests\Ares\VO;
+namespace RegistryAres\Tests\Ares\Vo;
 
 use PHPUnit\Framework\TestCase;
 use RegistryAres\Ares\Exception\InvalidArgumentException;

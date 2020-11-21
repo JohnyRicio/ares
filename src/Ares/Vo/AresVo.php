@@ -6,7 +6,7 @@ use RegistryAres\Ares\Exception\IncorrectReturnedDataException;
 use RegistryAres\Ares\Exception\InvalidArgumentException;
 use SimpleXMLElement;
 
-final class AresVO extends Vo
+final class AresVo extends Vo
 {
 
     /** @var string */

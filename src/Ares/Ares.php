@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use RegistryAres\Ares\Exception\ExternalAresException;
 use RegistryAres\Ares\Exception\InvalidArgumentException;
-use RegistryAres\Ares\Vo\AresVO;
+use RegistryAres\Ares\Vo\AresVo;
 use function preg_match;
 
 require_once __DIR__.'/../../vendor/autoload.php';
@@ -28,7 +28,7 @@ class Ares
 	}
 
     /** @throws ExternalAresException | InvalidArgumentException | Exception\IncorrectReturnedDataException */
-    public function getByCompanyId(string $companyId): AresVO
+    public function getByCompanyId(string $companyId): AresVo
 	{
 		$this->checkRequiredInput($companyId);
 
@@ -57,7 +57,7 @@ class Ares
 			throw new ExternalAresException('Problem in ARES: ' . $data->children($ns['D'])->E->ET);
 		}
 
-		return AresVO::createFromXmlElement(
+		return AresVo::createFromXmlElement(
 			$companyId, $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
 			$data->children($ns['D'])->VBAS,
 		);

@@ -4,7 +4,7 @@ namespace RegistryAres\Tests\Ares\Vo;
 
 use PHPUnit\Framework\TestCase;
 use RegistryAres\Ares\Exception\InvalidArgumentException;
-use RegistryAres\Ares\Vo\AresVO;
+use RegistryAres\Ares\Vo\AresVo;
 
 class AresVoTest extends TestCase
 {
@@ -28,7 +28,7 @@ class AresVoTest extends TestCase
         /** @var array<string,string> $ns */
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
-        AresVO::createFromXmlElement(
+        AresVo::createFromXmlElement(
             '', $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
             $data->children($ns['D'])->VBAS,
         );
@@ -53,7 +53,7 @@ class AresVoTest extends TestCase
         /** @var array<string,string> $ns */
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
-        AresVO::createFromXmlElement(
+        AresVo::createFromXmlElement(
             '1231231', $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
             $data->children($ns['D'])->VBAS,
         );

@@ -3,6 +3,7 @@
 namespace RegistryAres\Tests\Ares\Vo;
 
 use PHPUnit\Framework\TestCase;
+use RegistryAres\Ares\Exception\ExternalAresException;
 use RegistryAres\Ares\Exception\InvalidArgumentException;
 use RegistryAres\Ares\Vo\MetaVo;
 
@@ -25,8 +26,13 @@ class MetaVoTest extends TestCase
             throw new InvalidArgumentException('Bad input xml!');
         }
 
-        /** @var array<string,string> $ns */
+        /** @var array<string>|false $ns */
         $ns = $xml->getDocNamespaces();
+
+        if (false === $ns) {
+            throw new ExternalAresException('Can not load namespace');
+        }
+
         $data = $xml->children($ns['are']);
         MetaVo::createFromXmlElement($data->children($ns['D'])->UVOD);
     }

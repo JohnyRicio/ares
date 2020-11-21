@@ -153,6 +153,26 @@ final class AresTest extends TestCase
         $ares->getByCompanyId('48136000');
     }
 
+    public function testBadNamespace(): void
+    {
+        $client = $this->createMock(Client::class);
+        $xmlData = file_get_contents(__DIR__ . '/data/InvalidNamespaceFakeData.xml');
+
+        if (false === $xmlData) {
+            throw new InvalidArgumentException('File is not readable');
+        }
+
+        $client->method('request')->willReturn(
+            new Response(200, [], $xmlData),
+        );
+
+        $ares = $this->_getAres($client);
+
+        $this->expectException(ExternalAresException::class);
+        $this->expectErrorMessage('Can not load namespace');
+        $ares->getByCompanyId('12332112');
+    }
+
     public function testReturnedFakeData(): void
     {
         $client = $this->createMock(Client::class);

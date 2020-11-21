@@ -49,8 +49,13 @@ class Ares
 			throw new ExternalAresException('Problem with xml parser');
 		}
 
-		/** @var array<string,string> $ns */
+        /** @var array<string>|false $ns */
 		$ns = $xml->getDocNamespaces();
+
+		if (!$ns) {
+            throw new ExternalAresException('Can not load namespace');
+        }
+
 		$data = $xml->children($ns['are']);
 
 		if (!empty($data->children($ns['D'])->E->EK)) {

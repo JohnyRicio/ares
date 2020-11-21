@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ares_odpovedi odpoved_datum_cas="2020-10-12T23:20:28" odpoved_pocet="1" odpoved_typ="Basic" vystup_format="XML"
+                   Id="ares">
+    <Odpoved>
+        <UVOD>
+            <DVY>2020-08-26</DVY>
+            <CAS>13:23:51</CAS>
+        </UVOD>
+        <VBAS>
+            <ICO zdroj="RZP">12332112</ICO>
+            <DIC zdroj="DPH">CZ12332112</DIC>
+            <OF zdroj="RZP">Test User</OF>
+            <DV>2007-10-04</DV>
+            <AA zdroj="ARES">
+                <NS>Česká republika</NS>
+                <N>Pardubice</N>
+                <NCO>Plzeňské Předměstí</NCO>
+                <NU>Josefa Švejka</NU>
+                <CD>1122b</CD>
+                <CO>2a</CO>
+                <TCD>1</TCD>
+                <PSC>32325</PSC>
+            </AA>
+            <Obory_cinnosti>
+                <Obor_cinnosti>
+                    <K>Z01007</K>
+                    <T>Výroba potravinářských a škrobárenských výrobků</T>
+                </Obor_cinnosti>
+                <Obor_cinnosti>
+                    <K>Z01012</K>
+                    <T>Zpracování dřeva, výroba dřevěných, korkových, proutěných a slaměných výrobků</T>
+                </Obor_cinnosti>
+                <Obor_cinnosti>
+                    <K>Z01013</K>
+                    <T>Výroba vlákniny, papíru a lepenky a zboží z těchto materiálů</T>
+                </Obor_cinnosti>
+            </Obory_cinnosti>
+        </VBAS>
+    </Odpoved>
+</Ares_odpovedi>

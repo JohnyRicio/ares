@@ -3,6 +3,7 @@
 namespace RegistryAres\Tests\Ares\Vo;
 
 use PHPUnit\Framework\TestCase;
+use RegistryAres\Ares\Exception\ExternalAresException;
 use RegistryAres\Ares\Exception\InvalidArgumentException;
 use RegistryAres\Ares\Vo\AresVo;
 
@@ -25,8 +26,13 @@ class AresVoTest extends TestCase
             throw new InvalidArgumentException('Bad input xml!');
         }
 
-        /** @var array<string,string> $ns */
+        /** @var array<string>|false $ns */
         $ns = $xml->getDocNamespaces();
+
+        if (false === $ns) {
+            throw new ExternalAresException('Can not load namespace');
+        }
+
         $data = $xml->children($ns['are']);
         AresVo::createFromXmlElement(
             '', $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,
@@ -50,8 +56,13 @@ class AresVoTest extends TestCase
             throw new InvalidArgumentException('Bad input xml!');
         }
 
-        /** @var array<string,string> $ns */
+        /** @var array<string>|false $ns */
         $ns = $xml->getDocNamespaces();
+
+        if (false === $ns) {
+            throw new ExternalAresException('Can not load namespace');
+        }
+
         $data = $xml->children($ns['are']);
         AresVo::createFromXmlElement(
             '1231231', $data->children($ns['D'])->VBAS, $data->children($ns['D'])->UVOD,

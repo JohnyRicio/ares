@@ -4,4 +4,4 @@ parameters:
         - src
         - tests
     universalObjectCratesClasses:
-        - RegistryAres\Ares\Vo\AresVO
+        - RegistryAres\Ares\Vo\AresVo

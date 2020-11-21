@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace RegistryAres\Tests\Ares\VO;
+namespace RegistryAres\Tests\Ares\Vo;
 
 use PHPUnit\Framework\TestCase;
 use RegistryAres\Ares\Exception\InvalidArgumentException;
 use RegistryAres\Ares\Vo\MetaVo;
 
-class MetaVOTest extends TestCase
+class MetaVoTest extends TestCase
 {
 
     public function testExceptionMeta(): void
@@ -25,6 +25,7 @@ class MetaVOTest extends TestCase
             throw new InvalidArgumentException('Bad input xml!');
         }
 
+        /** @var array<string,string> $ns */
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
         MetaVo::createFromXmlElement($data->children($ns['D'])->UVOD);

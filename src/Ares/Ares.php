@@ -49,6 +49,7 @@ class Ares
 			throw new ExternalAresException('Problem with xml parser');
 		}
 
+		/** @var array<string,string> $ns */
 		$ns = $xml->getDocNamespaces();
 		$data = $xml->children($ns['are']);
 

@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use RegistryAres\Ares\Exception\InvalidArgumentException;
 use RegistryAres\Ares\Vo\AresVO;
 
-class AresVOTest extends TestCase
+class AresVoTest extends TestCase
 {
 
     public function testAresVoEmptyCompanyId(): void
@@ -25,6 +25,7 @@ class AresVOTest extends TestCase
             throw new InvalidArgumentException('Bad input xml!');
         }
 
+        /** @var array<string,string> $ns */
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
         AresVO::createFromXmlElement(
@@ -49,6 +50,7 @@ class AresVOTest extends TestCase
             throw new InvalidArgumentException('Bad input xml!');
         }
 
+        /** @var array<string,string> $ns */
         $ns = $xml->getDocNamespaces();
         $data = $xml->children($ns['are']);
         AresVO::createFromXmlElement(

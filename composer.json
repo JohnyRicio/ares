@@ -23,10 +23,10 @@
     },
     "require-dev": {
         "slevomat/coding-standard": ">=6.0.0",
-        "phpstan/phpstan": ">=0.12.0",
+        "phpstan/phpstan": ">=0.12.56",
         "phpunit/phpunit": "^9.4",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan-phpunit": "^0.12.56"
+        "phpstan/phpstan-phpunit": "^0.12.16"
     },
     "extra": {
         "phpstan": {

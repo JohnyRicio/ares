@@ -26,8 +26,7 @@
         "phpstan/phpstan": ">=0.12.0",
         "phpunit/phpunit": "^9.4",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan-phpunit": "^0.12.16",
-        "phpstan/phpstan-mockery": "^0.12.7"
+        "phpstan/phpstan-phpunit": "^0.12.16"
     },
     "extra": {
         "phpstan": {

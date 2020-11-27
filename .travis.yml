@@ -3,7 +3,7 @@ language: php
 php:
   - 7.3
   - 7.4
-  - 8.0snapshot
+  - 8.0
 
 env:
   matrix:
@@ -25,6 +25,3 @@ after_success:
 notifications:
   email: false
 
-jobs:
-  allow_failures:
-    - php: 8.0snapshot

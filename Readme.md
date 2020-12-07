@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/JohnyRicio/ares.svg?branch=master)](https://travis-ci.org/JohnyRicio/ares)
+[![Build Status](https://travis-ci.org/JohnyRicio/registry-ares.svg?branch=master)](https://travis-ci.org/JohnyRicio/registry-ares)
 [![codecov.io](https://codecov.io/github/JohnyRicio/ares/coverage.svg?branch=master)](https://codecov.io/github/Johnyricio/ares?branch=master)
 
 Ares
